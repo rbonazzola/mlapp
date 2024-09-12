@@ -1,0 +1,12 @@
+version: 3.8
+
+services:
+  ml_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    mem_limit: 1g    

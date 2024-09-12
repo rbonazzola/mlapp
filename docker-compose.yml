@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    container_name: ml_app_postgres
+    environment:
+      - POSTGRES_USER=anyone_ai
+      - POSTGRES_PASSWORD=anyone_ai
+      - POSTGRES_DB=ml_app
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis/redis-stack:latest
+    container_name: redis-stack
+    ports:
+      - "6378:6379"
+      - "8001:8001"
+
+  ml_app:
+    build:
+      context: ./ml_api
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+      - redis
+      - model_service
+    ports:
+      - "8000:8000"
+
+  model_service:
+    build:
+      context: ./model_service
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+      - redis
+  
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "9000:9000"
+      
+volumes:
+  pgdata:
