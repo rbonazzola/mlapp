@@ -1,0 +1,30 @@
+name: Python test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'          
+      - name: Install dependencies
+        run: |
+          cd model_service
+          python -m pip install -r requirements.txt
+          pip install pytest
+      - name: Run tests
+        run: |          
+          ls -la
+          cd model_service        
+          pytest

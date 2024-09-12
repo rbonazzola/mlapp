@@ -41,6 +41,6 @@ def test_predict_highrisk():
     }
 
     prediction = predict(model, preprocessor, **parameters)
-    if prediction <= 0.95:        
+    if prediction >= 0.95:        
         raise ValueError(f"{prediction} should be greater than 0.95")
     assert prediction > 0.95

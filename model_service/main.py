@@ -2,6 +2,7 @@ import json, time, pickle, os
 
 os.environ["KERAS_BACKEND"] = "tensorflow"
 
+
 import redis
 import pandas as pd
 from sklearn.neural_network import MLPClassifier
