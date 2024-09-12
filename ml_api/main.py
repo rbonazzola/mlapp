@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 from routes.model_routes import router as model_router
 from helpers.database import create_table
 
